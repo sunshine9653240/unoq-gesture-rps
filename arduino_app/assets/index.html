@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNO Q Gesture RPS</title>
+  <link rel="stylesheet" href="style.css?v=8" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">UNO Q</span>
+        <span class="brand-title">GESTURE <b>RPS</b></span>
+      </div>
+      <div id="boardPill" class="connection-pill offline">UNO Q · 連線中</div>
+    </header>
+
+    <main class="arena">
+      <section class="camera-card panel">
+        <div class="camera-head">
+          <div>
+            <p class="eyebrow">LIVE CAMERA</p>
+            <h2>把手放進畫面</h2>
+          </div>
+          <span id="fpsValue" class="fps">0 FPS</span>
+        </div>
+
+        <div class="camera-stage">
+          <video id="camera" autoplay muted playsinline></video>
+          <img id="externalFeed" class="external-feed" alt="DroidCam preview" hidden />
+          <div id="cameraPlaceholder" class="camera-placeholder">
+            <div class="spinner"></div>
+            <p>正在開啟鏡頭…</p>
+          </div>
+          <div class="scan-line"></div>
+          <div class="camera-overlay">
+            <span id="cameraState">請求鏡頭權限中…</span>
+            <span class="live-dot"></span>
+          </div>
+          <div id="gestureBadge" class="gesture-badge">
+            <span id="gestureText">等待手勢</span>
+            <span id="gestureConfidence">—</span>
+          </div>
+          <div id="countdownOverlay" class="countdown-overlay" hidden>
+            <span id="countdownValue">3</span>
+          </div>
+          <canvas id="captureCanvas" width="320" height="240" hidden></canvas>
+        </div>
+
+        <p id="cameraHelp" class="camera-help">鏡頭開啟後，比出石頭、布或剪刀；手勢穩定約 0.5 秒就會自動出拳。</p>
+        <div class="confidence-track"><div id="confidenceFill" class="confidence-fill"></div></div>
+        <button id="startCameraButton" class="start-camera" type="button" hidden>開啟鏡頭</button>
+      </section>
+
+      <section id="gamePanel" class="game-card panel">
+        <div class="game-head">
+          <div>
+            <p class="eyebrow">UNO Q VISION</p>
+            <h1>手上見真章</h1>
+          </div>
+          <div class="head-actions">
+            <span id="roundTag" class="round-tag">READY</span>
+            <button id="pauseButton" class="pause-button" type="button">⏸ 暫停</button>
+          </div>
+        </div>
+
+        <div class="scoreboard">
+          <div class="score-side">
+            <span class="score-label">你</span>
+            <strong id="playerScore" class="score-number">0</strong>
+          </div>
+          <div class="score-divider">:</div>
+          <div class="score-side ai">
+            <span class="score-label">電腦</span>
+            <strong id="aiScore" class="score-number">0</strong>
+          </div>
+        </div>
+
+        <div class="matchup">
+          <div id="playerMove" class="move-card player">
+            <span class="move-caption">PLAYER</span>
+            <div id="playerIcon" class="move-icon">✊</div>
+            <div id="playerName" class="move-name">等待</div>
+          </div>
+          <div class="versus">VS</div>
+          <div id="aiMove" class="move-card opponent">
+            <span class="move-caption">UNO Q</span>
+            <div id="aiIcon" class="move-icon">🤖</div>
+            <div id="aiName" class="move-name">等待</div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <div id="resultTitle" class="result-title">舉起手，開始第一局</div>
+          <div id="resultSub" class="result-sub">比出石頭、布或剪刀</div>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item"><span>✊</span><b>石頭</b><small>握拳</small></div>
+          <div class="legend-item"><span>✋</span><b>布</b><small>張開手掌</small></div>
+          <div class="legend-item"><span>✌️</span><b>剪刀</b><small>V 字手勢</small></div>
+        </div>
+
+        <div class="game-footer">
+          <span>AI 在 UNO Q 上執行 · 影像只在本機與板子之間傳送</span>
+          <button id="resetScore" type="button">重設分數</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>GESTURE BATTLE / ARDUINO UNO Q</span>
+      <span class="keyboard-hint">備援鍵：R 石頭 · P 布 · S 剪刀</span>
+    </footer>
+  </div>
+
+  <script src="libs/socket.io.min.js"></script>
+  <script src="libs/arduino.js"></script>
+  <script src="app.js?v=8"></script>
+</body>
+</html>

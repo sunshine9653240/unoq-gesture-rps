@@ -1,0 +1,11 @@
+name: UNO Q Gesture RPS
+icon: "✌️"
+description: Browser webcam rock-paper-scissors with on-board AI gesture recognition and LED matrix feedback.
+ports:
+  - 8080
+bricks:
+  - arduino:video_object_detection:
+      model: hand-gestures
+      devices:
+        - remote_camera_0
+  - arduino:web_ui
